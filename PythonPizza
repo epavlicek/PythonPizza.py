@@ -1,0 +1,56 @@
+class Pizza:
+    
+    def __init__(self,size='M',tops=set()):
+        self.tops = set(tops)
+        self.size = size
+            
+    def __repr__(self):
+        return f"Pizza('{self.size}',{self.tops})"
+
+    def setSize(self,size):
+        self.size = size
+
+    def getSize(self):
+        return self.size
+
+    def addTopping(self,topping):
+        self.tops.add(topping)
+            
+    def removeTopping(self,topping):
+        self.tops.remove(topping)
+
+    def price(self):
+        if self.size == 'S':
+            price = 6.25 + len(self.tops)*.70
+            return price
+        if self.size == 'M':
+            price = 9.95 + len(self.tops)*1.45
+            return price
+
+        if self.size == 'L':
+            price = 12.95 + len(self.tops)*1.85
+            return price
+    def __eq__(self,other):
+        if self.tops==other.tops and self.size==other.size:
+            return True
+        else:
+            return False
+def orderPizza():
+    pie = Pizza()
+    print('Welcome to Python Pizza!')
+    size = input('What size pizza would you like (S,M,L): ')
+    pie.setSize(size)
+    while True:
+        topping= input('Type topping to add (or Enter to quit): ')
+        if topping == '':
+            break
+        else:
+            pie.addTopping(topping)
+    print('Thanks for ordering!')
+    print('Your pizza costs '+'$'+ str(pie.price()))
+    return pie
+       
+    
+if __name__=='__main__':
+    import doctest
+    print( doctest.testfile( 'hw8TEST.py'))
